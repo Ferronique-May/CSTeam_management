@@ -1,0 +1,40 @@
+@model Website.Models.Person
+
+@{
+    ViewData["Title"] = "Person";
+}
+
+@if (Model != null)
+{
+<h2>@ViewData["Title"]</h2>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Department)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Years)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Years)
+        </dd>
+    </dl>
+</div>
+@* <div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+</div> *@
+}
+else {
+    <h1 class="text-danger">Error.</h1>
+    <h2 class="text-danger">The person Id you requested does not exist.</h2>
+}
