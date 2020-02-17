@@ -27,7 +27,7 @@ namespace Website.Controllers
         }
         public IActionResult Details(int? id)
         {
-            List<Person?> people = new List<Person>();
+            List<Person> people = new List<Person>();
             if (!id.HasValue) {
                 for(int i = 0; i < 10; i++) {
                     people.Add(_db.People.FirstOrDefault(p => p.Id == i));
