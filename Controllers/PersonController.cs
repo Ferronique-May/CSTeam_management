@@ -27,15 +27,19 @@ namespace Website.Controllers
         }
         public IActionResult Details(int? id)
         {
-            List<Person> ex = new List<Person>();
-            if (!id.HasValue)
-                return NotFound(); //Notfound is the 404 error page?
+            List<Person?> people = new List<Person>();
+            if (!id.HasValue) {
+                for(int i = 0; i < 10; i++) {
+                    people.Add(_db.People.FirstOrDefault(p => p.Id == i));
+                }
+                return View(people); //Notfound(); is the 404 error page?
+            }
 
-            var person = _db.People.FirstOrDefault(p => p.Id == id.Value);
+            people.Add(_db.People.FirstOrDefault(p => p.Id == id.Value));
 
             // if (person == null)
             //     return NotFound();
-            return View(person); //Changed details to be fine with null (if/else)
+            return View(people);
         }
         public IActionResult Add(int? id)
         {
@@ -51,7 +55,6 @@ namespace Website.Controllers
                 //create
                 _db.People.Add(People);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
             }
             return View(People);
         }
