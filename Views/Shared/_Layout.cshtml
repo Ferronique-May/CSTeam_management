@@ -1,4 +1,10 @@
 ﻿<!DOCTYPE html>
+@{
+    @using Microsoft.AspNetCore.Http;
+    var Sesh = Context.Session.GetString("Locke");
+    
+}
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -35,7 +41,7 @@
                         </li>
                         if (false) { //if admin
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">Members</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">New Members</a>
                             </li>
                         }
                         <li class="nav-item">
