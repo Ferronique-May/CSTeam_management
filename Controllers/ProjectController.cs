@@ -24,6 +24,10 @@ namespace Website.Controllers
 
         public IActionResult Index()
         {
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
             List<ProjectModel> project = new List<ProjectModel>();
             for(int i = 1; i < 11; i++){
                 project.Add(_db.Projects.FirstOrDefault(p => p.Id == i));
@@ -33,6 +37,10 @@ namespace Website.Controllers
 
         public IActionResult Add(int? id)
         {
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
             Project = new ProjectModel();
             return View(Project);
         }
@@ -40,6 +48,10 @@ namespace Website.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add()
         {
+            if (!(UserController.sessionState)|| UserController.role != "Admin")
+            {
+                return RedirectToAction("Login", "User");
+            }
             Project.AdminId = UserController.userId;
             if (ModelState.IsValid)
             {
@@ -48,11 +60,6 @@ namespace Website.Controllers
             }
             Project = new ProjectModel();
             return View(Project);
-        }
-
-        public IActionResult ViewTasks(int i)
-        {
-            return Redirect($"../Task/Index?id={i}");
         }
     }
 }
