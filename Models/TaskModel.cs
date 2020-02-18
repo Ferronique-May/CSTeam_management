@@ -28,6 +28,7 @@ namespace Website.Models
         public int Progress { get; set; } // 0 - 100 
 
         [Required]
+        [Display(Name = "Status")]
         public string Flags { get; set; } //In Progess, Stuck,  Complete?
 
         [Required]
