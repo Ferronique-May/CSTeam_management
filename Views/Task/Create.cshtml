@@ -12,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TaskName" class="control-label"></label>
-                <input asp-for="TaskName" class="form-control" />
+                <input asp-for="TaskName" class="form-control"/>
                 <span asp-validation-for="TaskName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,17 +57,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ProjectId" class="control-label"></label>
-                <!--<input asp-for="ProjectId" class="form-control" />-->
-                @Html.DropDownListFor(model => model.ProjectId,
-                     new SelectList(new List<SelectListItem>
-                  {
-                      new SelectListItem { Text = "iCapture" , Value = "1"},
-                      new SelectListItem { Text = "WooDoo", Value = "2" },
-                      new SelectListItem { Text = "MeeDoo", Value = "3" }
-                  },
-                    "Value",
-                    "Text",
-                    "True"), new { @class = "form-control" })
+                <input asp-for="ProjectId" class="form-control" />
                 <span asp-validation-for="ProjectId" class="text-danger"></span>
             </div>
             <div class="form-group">
