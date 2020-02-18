@@ -40,6 +40,7 @@ namespace Website.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add()
         {
+            Project.AdminId = UserController.userId;
             if (ModelState.IsValid)
             {
                 _db.Projects.Add(Project);
@@ -47,6 +48,11 @@ namespace Website.Controllers
             }
             Project = new ProjectModel();
             return View(Project);
+        }
+
+        public IActionResult ViewTasks(int i)
+        {
+            return Redirect($"../Task/Index?id={i}");
         }
     }
 }
