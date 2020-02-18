@@ -14,6 +14,7 @@ namespace Website.Controllers
     public class UserController : Controller
     {
         public static bool sessionState { get; private set;}
+        public static string role { get; private set;}
         private readonly MyDbContext _db;
 
         public UserController(MyDbContext db)
@@ -35,7 +36,6 @@ namespace Website.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register([Bind("UserId", "Email", "FullName", "Password", "Role")]UserModel register)
         {
-            Console.WriteLine(UserModel.EmailExists(register.Email, _db));
              if (ModelState.IsValid && !UserModel.EmailExists(register.Email, _db))
             {
                 //create
@@ -45,7 +45,7 @@ namespace Website.Controllers
                 _db.Users.Add(register);
                 _db.SaveChanges();
 
-                return Redirect("login");
+                return Redirect("Login");
             }
 
             return View("Register", register);
@@ -57,7 +57,7 @@ namespace Website.Controllers
         }
         
         [HttpPost]
-         public IActionResult Login([Bind("Id", "Email", "Password")]UserModel login)
+         public IActionResult Login([Bind("UserId", "Email", "Password")]UserModel login)
         {
             if (login.Email == null || login.Password == null) 
                 return View();
@@ -74,6 +74,7 @@ namespace Website.Controllers
             {
                 HttpContext.Session.SetInt32("ID", user.UserId);
                 sessionState = true;
+                role = user.Role;
                 return Redirect("../Home/");
             }
             return View();
@@ -85,7 +86,12 @@ namespace Website.Controllers
             sessionState = false;
             return Redirect("Login");
         }
-        
+        public IActionResult Details(int? id)
+        {
+            List<UserModel> people = new List<UserModel>();
+            people.Add(_db.Users.FirstOrDefault(p => p.UserId == HttpContext.Session.GetInt32("ID")));
+            return View(people);
+        }
     }
     
 }

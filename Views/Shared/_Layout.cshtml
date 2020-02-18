@@ -1,8 +1,7 @@
 ﻿<!DOCTYPE html>
 @{
-    @using Microsoft.AspNetCore.Http;
-    var Sesh = Context.Session.GetString("Locke");
-    
+    @using Microsoft.AspNetCore.Http;   
+    @using Website.Controllers;
 }
 
 <html lang="en">
@@ -28,7 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    @if(ViewBag.session == null) //not session
+                    @if(!UserController.sessionState) //not session
                     {
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
@@ -40,7 +39,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
-                        if (ViewBag.admin) { //if admin
+                        if (UserController.role == "Admin") { //if admin
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">New Members</a>
                             </li>
