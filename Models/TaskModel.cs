@@ -14,17 +14,21 @@ namespace Website.Models
         public string TaskDescription { get; set; }
 
         [Required]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/mm/dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true)]
+
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy/mm/dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         [Display(Name = "Due Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true)]
         public DateTime DueDate { get; set; }
 
         [Required]
         [Display(Name = "Progress")]
+        [Range(1, 100, ErrorMessage = "The progress must be between 1 - 100")]
         public int Progress { get; set; } // 0 - 100 
 
         [Required]
