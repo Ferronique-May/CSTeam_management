@@ -8,7 +8,10 @@
 <div class="text-center">
     <h1 class="display-4">Projects Page</h1>
     <div class="col-2">
+        @if(UserController.role == "Admin")
+        {
         <a asp-action="Add" class="btn btn-success form-control">Create Project</a>
+        }
     </div>
 </div>
 <hr/>
