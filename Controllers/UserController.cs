@@ -84,6 +84,7 @@ namespace Website.Controllers
         {
             HttpContext.Session.Clear();
             sessionState = false;
+            role = "";
             return Redirect("Login");
         }
         public IActionResult Details(int? id)
