@@ -15,6 +15,7 @@ namespace Website.Controllers
     {
         public static bool sessionState { get; private set;}
         public static string role { get; private set;}
+        public static int userId { get; private set;}
         private readonly MyDbContext _db;
 
         public UserController(MyDbContext db)
@@ -98,6 +99,7 @@ namespace Website.Controllers
                 HttpContext.Session.SetInt32("ID", user.UserId);
                 sessionState = true;
                 role = user.Role;
+                userId = user.UserId;
                 return Redirect("../Home/");
             }
             return View();

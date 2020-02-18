@@ -19,37 +19,33 @@
 {
     @if (item != null)
     {
-@* <h2>@ViewData["Title"]</h2>
-<hr /> *@
 <div>
     <dl class="dl-horizontal">
         
         <h5>Project Name</h5>
         <dd>
-            @Html.DisplayFor(model => model[i].Name)
+            @Html.DisplayFor(model => item.Name)
         </dd>
         
         <h5>Decription</h5>
         <dd>
-            @Html.DisplayFor(model => model[i].Description)
+            @Html.DisplayFor(model => item.Description)
         </dd>
 
         <h5>Start Date</h5>
         <dd>
-            @Html.DisplayFor(model => model[i].StartDate)
+            @Html.DisplayFor(model => item.StartDate)
         </dd>
 
         <h5>Due Date</h5>
         <dd>
-            @Html.DisplayFor(model => model[i].DueDate)
+            @Html.DisplayFor(model => item.DueDate)
         </dd>
 
         <p>
-            <button>Delete</button>
-            <button>Edit</button>
-            <button>View Tasks</button>
+            <a asp-controller="Task" asp-action="Index" class="btn btn-info" asp-route-id="@item.Id" >View Tasks</a>
         </p>
-        <hr>
+        <hr style="border: 1px solid black;">
     </dl>
 </div>
     i++;
