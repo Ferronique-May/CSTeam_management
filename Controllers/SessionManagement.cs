@@ -6,8 +6,8 @@ namespace Website.Controllers
 {
     public class SessionManagement : Controller
     {
-        public bool sessionState { get; private set;}
-        
+        public static bool sessionState { get; private set;}
+
         //put into login {
             HttpContext.Session.SetInt32(currentUser.Email, currentUser.Id); //possibly hash the email
             sessionState = true;
