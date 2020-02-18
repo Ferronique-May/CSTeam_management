@@ -12,6 +12,7 @@
     <title>@ViewData["Title"] - Website</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
 </head>
 <body>
     <header>
@@ -27,7 +28,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    @if(false) //not session
+                    @if(ViewBag.session == null) //not session
                     {
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
@@ -39,7 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
-                        if (false) { //if admin
+                        if (ViewBag.admin) { //if admin
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">New Members</a>
                             </li>
@@ -48,7 +49,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Tasks">Tasks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">Projects</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">Project</a>
                         </li>
                     }
                     </ul>

@@ -4,31 +4,28 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Website.Models;
+using Website.StaticData;
 
 namespace Website.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        
+        private readonly MyDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(MyDbContext db)
         {
-            //loggin errors or something? Made by the default dotnet new mvc
-            _logger = logger;
+            _db = db;
         }
         public IActionResult Index()
         {
-            // HttpContext.Session.SetString("Hello", "<br> This will be caused by a session :D");
-            // HttpContext.Session.SetInt32("Hello", 12);
             return View();
         }
 
         public IActionResult Privacy()
         {
-            // ViewBag.Message =  HttpContext.Session.GetString("Hello");
             return View();
         }
 
@@ -36,6 +33,25 @@ namespace Website.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult UseDefaults()
+        {
+            List<UserModel> defaultUser = UserData.People;
+            foreach(UserModel Dude in defaultUser) {
+                _db.Users.Add(Dude);
+            }
+            _db.SaveChanges();
+            List<TaskModel> defaultTask = TaskData.People;
+            foreach(TaskModel Dude in defaultTask) {
+                _db.Tasks.Add(Dude);
+            }
+            _db.SaveChanges();
+            List<ProjectModel> defaultProject = ProjectData.People;
+            foreach(ProjectModel Dude in defaultProject) {
+                _db.Projects.Add(Dude);
+            }
+            _db.SaveChanges();
+            return View();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Website.Models;
 using Website.StaticData;
@@ -27,7 +28,7 @@ namespace Website.Controllers
         }
         public IActionResult Details(int? id)
         {
-            List<Person> people = new List<Person>();
+            List<Person?> people = new List<Person>();
             if (!id.HasValue) {
                 for(int i = 0; i < 10; i++) {
                     people.Add(_db.People.FirstOrDefault(p => p.Id == i));
@@ -50,6 +51,12 @@ namespace Website.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add()
         {
+            var test = HttpContext.Session.GetInt32("ID");
+            var user = _db.Users.FirstOrDefault(p => p.UserId == test);
+            if (user != null)
+                Console.WriteLine(user.Email);
+            else
+                Console.WriteLine("Nothing");
             if (ModelState.IsValid)
             {
                 //create
