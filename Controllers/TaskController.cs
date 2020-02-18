@@ -16,6 +16,19 @@ namespace Website.Controllers
             _db = db;
         }
 
+        public async Task<IActionResult> Index(string searchString)
+        {
+            var tasks = from m in _db.Tasks
+                        select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tasks = tasks.Where(s => s.TaskName.Contains(searchString));
+            }
+
+            return View(await tasks.ToListAsync());
+        }
+
         /*public IActionResult Index()
         {
             List<TaskModel> tasks = new List<TaskModel>();
@@ -132,18 +145,7 @@ namespace Website.Controllers
             return View(task);
         }
 
-        public async Task<IActionResult> Index(string searchString)
-        {
-            var tasks = from m in _db.Tasks
-                         select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                tasks = tasks.Where(s => s.TaskName.Contains(searchString));
-            }
-
-            return View(await tasks.ToListAsync());
-        }
+        
 
     }
 }
