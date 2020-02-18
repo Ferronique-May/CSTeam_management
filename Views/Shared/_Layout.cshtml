@@ -33,7 +33,7 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register TeamLead</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">(Register TeamLead)</a>
                     </li>
                     } else { // else (session exists)
                         <li class="nav-item">
@@ -41,7 +41,7 @@
                         </li>
                         if (UserController.role == "Admin") { //if admin
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">New Members</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">(Add TeamMembers)</a>
                             </li>
                         }
                         <li class="nav-item">
