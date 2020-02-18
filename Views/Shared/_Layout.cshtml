@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    @if(false) //not session
+                    @if(ViewBag.session == null) //not session
                     {
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
@@ -39,7 +39,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
-                        if (false) { //if admin
+                        if (ViewBag.admin) { //if admin
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">New Members</a>
                             </li>
