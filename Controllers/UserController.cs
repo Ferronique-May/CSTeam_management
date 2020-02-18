@@ -51,6 +51,29 @@ namespace Website.Controllers
             return View("Register", register);
         }
 
+        public IActionResult RegisterMember()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RegisterMember([Bind("UserId", "Email", "FullName", "Password", "Role")]UserModel register)
+        {
+            if (/* ModelState.IsValid &&  */!UserModel.EmailExists(register.Email, _db))
+            {
+                //create
+                string hashed_password = SecurePasswordHasherHelper.Hash(register.Password);
+                register.Password = hashed_password;
+
+                _db.Users.Add(register);
+                _db.SaveChanges();
+
+                return Redirect("../Home/");
+            }
+
+            return View(register);
+        }
+
         public IActionResult Login()
         {
             return View();
