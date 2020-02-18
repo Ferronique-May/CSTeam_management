@@ -3,7 +3,7 @@
 <br />
 <h2 class="text-info">@(Model.Id!=0 ? "Edit" : "Create") Book</h2>
 <br />
-
+@ViewBag.message -here;
 <div class="border container" style="padding:30px;">
     <form method="post">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
