@@ -16,7 +16,7 @@ namespace Website.Controllers
             _db = db;
         }
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string id)
         {
             var tasks = from m in _db.Tasks
                         select m;
@@ -24,6 +24,19 @@ namespace Website.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 tasks = tasks.Where(s => s.TaskName.Contains(searchString));
+            }
+            if (!String.IsNullOrEmpty(id))
+            {
+                try
+                {
+                    var convertToNum = Int32.Parse(id);
+                    tasks = tasks.Where(s => s.ProjectId.Equals(convertToNum));
+                }
+                catch
+                {
+
+                }
+                
             }
 
             return View(await tasks.ToListAsync());
