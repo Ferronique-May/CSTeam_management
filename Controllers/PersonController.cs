@@ -52,7 +52,7 @@ namespace Website.Controllers
         public IActionResult Add()
         {
             var test = HttpContext.Session.GetInt32("ID");
-            var user = _db.Users.FirstOrDefault(p => p.Id == test);
+            var user = _db.Users.FirstOrDefault(p => p.UserId == test);
             if (user != null)
                 Console.WriteLine(user.Email);
             else

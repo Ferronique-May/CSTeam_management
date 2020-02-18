@@ -33,7 +33,7 @@ namespace Website.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register([Bind("Id", "Email", "FullName", "Password", "Role")]UserModel register)
+        public IActionResult Register([Bind("UserId", "Email", "FullName", "Password", "Role")]UserModel register)
         {
             Console.WriteLine(UserModel.EmailExists(register.Email, _db));
              if (ModelState.IsValid && !UserModel.EmailExists(register.Email, _db))
@@ -72,7 +72,7 @@ namespace Website.Controllers
             
             if(SecurePasswordHasherHelper.Verify(login.Password,userPassword))
             {
-                HttpContext.Session.SetInt32("ID", user.Id);
+                HttpContext.Session.SetInt32("ID", user.UserId);
                 sessionState = true;
                 return Redirect("../Home/");
             }
