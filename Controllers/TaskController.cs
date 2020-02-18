@@ -15,7 +15,8 @@ namespace Website.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
+
+        /*public IActionResult Index()
         {
             List<TaskModel> tasks = new List<TaskModel>();
             for (int i = 1; i < 11; i++)
@@ -23,9 +24,9 @@ namespace Website.Controllers
                 tasks.Add(_db.Tasks.FirstOrDefault(p => p.TaskId == i));
             }
             return View(tasks);
-        }
+        }*/
 
-        public IActionResult Create([Bind("TaskId", "TaskName","TaskDescription", "StartDate", "StartDate", "Progress", "Flags", "Comments", "ProjectId", "UserId")]Models.TaskModel addTask)
+        public IActionResult Create([Bind("TaskId", "TaskName","TaskDescription", "StartDate", "DueDate", "Progress", "Flags", "Comments", "ProjectId", "UserId")]Models.TaskModel addTask)
         {
             if(ModelState.IsValid)
             {
@@ -97,6 +98,51 @@ namespace Website.Controllers
         private bool TaskExists(int id)
         {
             return _db.Tasks.Any(e => e.TaskId == id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("TaskId", "TaskName","TaskDescription", "StartDate", "DueDate", "Progress", "Flags", "Comments", "ProjectId", "UserId")] TaskModel task)
+        {
+            if (id != task.TaskId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(task);
+                    await _db.SaveChangesAsync().ConfigureAwait(false);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TaskExists(task.TaskId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(task);
+        }
+
+        public async Task<IActionResult> Index(string searchString)
+        {
+            var tasks = from m in _db.Tasks
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tasks = tasks.Where(s => s.TaskName.Contains(searchString));
+            }
+
+            return View(await tasks.ToListAsync());
         }
 
     }
