@@ -7,7 +7,7 @@ namespace Website.Models
     public class UserModel
     {
         [Key] //sets itself on creation counting upwards
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]

@@ -8,7 +8,7 @@ namespace Website.Models
         [Required]
         public string Name { get; set; }
         public string Desc { get; set; }
-        public int StartDate { get; set; }
-        public int DueDate { get; set; }
+        public string StartDate { get; set; }
+        public string DueDate { get; set; }
     }
 }
