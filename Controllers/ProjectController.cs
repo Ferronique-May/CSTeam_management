@@ -14,7 +14,6 @@ namespace Website.Controllers
     {
         private readonly MyDbContext _db;
 
-        [BindProperty]
         public ProjectModel Project {get; set;}
         public ProjectController(MyDbContext db)
         {
