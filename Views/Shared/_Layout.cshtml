@@ -1,8 +1,7 @@
 ﻿<!DOCTYPE html>
 @{
-    @using Microsoft.AspNetCore.Http;
-    var Sesh = Context.Session.GetString("Locke");
-    
+    @using Microsoft.AspNetCore.Http;   
+    @using Website.Controllers;
 }
 
 <html lang="en">
@@ -28,28 +27,28 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    @if(false) //not session
+                    @if(!UserController.sessionState) //not session
                     {
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">(Register TeamLead)</a>
                     </li>
                     } else { // else (session exists)
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
-                        if (false) { //if admin
+                        if (UserController.role == "Admin") { //if admin
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">New Members</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="RegisterMember">(Add TeamMembers)</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Tasks">Tasks</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Task" asp-action="Index">Task</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">Projects</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Index">Project</a>
                         </li>
                     }
                     </ul>

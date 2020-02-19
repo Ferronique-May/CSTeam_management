@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Website.Models
 {
@@ -14,6 +15,13 @@ namespace Website.Models
         public string Password { get; set; }
         [Required]
         public string FullName { get; set; }
-        public bool Role { get; set; }
+        public string Role { get; set; }
+
+        public static bool EmailExists(string Email, MyDbContext _db)
+        {
+            var user = _db.Users.FirstOrDefault(p => p.Email == Email);
+            if (user == null) return false;
+            return true;
+        }
     }
 }
