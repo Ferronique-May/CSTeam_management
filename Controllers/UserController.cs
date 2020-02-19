@@ -60,9 +60,8 @@ namespace Website.Controllers
         [HttpPost]
         public IActionResult RegisterMember([Bind("UserId", "Email", "FullName", "Password", "Role")]UserModel register)
         {
-            if (/* ModelState.IsValid &&  */!UserModel.EmailExists(register.Email, _db))
+            if (!UserModel.EmailExists(register.Email, _db))
             {
-                //create
                 string hashed_password = SecurePasswordHasherHelper.Hash(register.Password);
                 register.Password = hashed_password;
 
