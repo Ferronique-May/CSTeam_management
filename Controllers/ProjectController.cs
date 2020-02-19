@@ -16,9 +16,8 @@ namespace Website.Controllers
 
         [BindProperty]
         public ProjectModel Project {get; set;}
-        public ProjectController(MyDbContext db)//ILogger<PersonController> logger)
+        public ProjectController(MyDbContext db)
         {
-        //     _logger = logger;
                 _db = db;
         }
 
