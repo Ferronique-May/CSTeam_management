@@ -11,6 +11,9 @@ namespace Website.Controllers
     public class TaskController : Controller
     {
         private readonly MyDbContext _db;
+
+        [BindProperty]
+        public TaskModel Task { get; set; }
         public TaskController (MyDbContext db)
         {
             _db = db;
@@ -18,6 +21,11 @@ namespace Website.Controllers
 
         public async Task<IActionResult> Index(string searchString, string id)
         {
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var tasks = from m in _db.Tasks
                         select m;
 
@@ -54,7 +62,11 @@ namespace Website.Controllers
 
         public IActionResult Create([Bind("TaskId", "TaskName","TaskDescription", "StartDate", "DueDate", "Progress", "Flags", "Comments", "ProjectId", "UserId")]Models.TaskModel addTask)
         {
-            if(ModelState.IsValid)
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            if (ModelState.IsValid)
             {
                 _db.Tasks.Add(addTask);
                 _db.SaveChanges();
@@ -82,6 +94,11 @@ namespace Website.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -97,9 +114,12 @@ namespace Website.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
             //if (!UserController.sessionState)
-                //return RedirectToAction("User", "Login");
+            //return RedirectToAction("User", "Login");
             if (id == null)
             {
                 return NotFound();
@@ -119,6 +139,10 @@ namespace Website.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var task = await _db.Tasks.FindAsync(id);
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
             _db.Tasks.Remove(task);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -133,6 +157,11 @@ namespace Website.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TaskId", "TaskName","TaskDescription", "StartDate", "DueDate", "Progress", "Flags", "Comments", "ProjectId", "UserId")] TaskModel task)
         {
+            if (!(UserController.sessionState))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             if (id != task.TaskId)
             {
                 return NotFound();
