@@ -14,9 +14,9 @@ namespace Website.StaticData
 
         private static List<UserModel> listOfUsers = new List<UserModel>()
         {
-            new UserModel() { UserId = 1, Email = "email@what.creativity", Password = "needsHash", FullName = "Tom Scott", Role = "t" },
-            new UserModel() { UserId = 2, Email = "email@example", Password = "defaultsUnhashed", FullName = "Minion", Role = "admin" },
-            new UserModel() { UserId = 3, Email = "email@test.default", Password = "mustHash", FullName = "Slave", Role = "dev" },
+            new UserModel() { UserId = 1, Email = "email@what.creativity", Password = SecurePasswordHasherHelper.Hash("Hashed"), FullName = "Tom Scott", Role = "Admin" },
+            new UserModel() { UserId = 2, Email = "email@example", Password = SecurePasswordHasherHelper.Hash("exe"), FullName = "Minion", Role = "dev" },
+            new UserModel() { UserId = 3, Email = "email@test.default", Password = SecurePasswordHasherHelper.Hash("test"), FullName = "Slave", Role = "dev" },
         };
     }
 }
