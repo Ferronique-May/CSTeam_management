@@ -12,6 +12,8 @@ namespace Website.Models
         [Required]
         public string Email { get; set; }
         [Required]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,50}$", 
+         ErrorMessage = "Password must meet requirements: lowercase, capital, digit, 8+ length")]
         public string Password { get; set; }
         [Required]
         public string FullName { get; set; }
