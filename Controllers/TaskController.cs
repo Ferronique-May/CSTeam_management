@@ -97,6 +97,9 @@ namespace Website.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
+
+            //if (!UserController.sessionState)
+                //return RedirectToAction("User", "Login");
             if (id == null)
             {
                 return NotFound();
