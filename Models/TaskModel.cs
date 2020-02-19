@@ -39,10 +39,10 @@ namespace Website.Models
         public string Comments { get; set; } // Provides reasons for the flags
 
         [Required]
-        [Display(Name = "Project Name")]
+        [Display(Name = "Project Id")]
         public int ProjectId { get; set; }
         [Required]
-        [Display(Name = "User Name")]
+        [Display(Name = "User Id")]
         public int UserId { get; set; }
     }
 }

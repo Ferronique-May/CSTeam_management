@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<Website.Models.TaskModel>
-
 @{
-    ViewData["Title"] = "Index";
+    @using Website.Controllers;
+    int i = 0;
 }
+
 
 <h1>All Tasks</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-</p>
+    @if (UserController.role == "Admin")
+    {
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    }
+    </p>
 <form asp-controller="Task" asp-action="Index" method="get">
     <p>
         Title: <input type="text" name="SearchString">
@@ -49,46 +53,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
-    @if (item != null)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Progress)
-                @Html.DisplayName("%")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Flags)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.TaskId">Edit</a> |
-                <a class="btn btn-primary"asp-action="Details" asp-route-id="@item.TaskId">Details</a> |
-                <a class="btn btn-danger"asp-action="Delete" asp-route-id="@item.TaskId">Delete</a>
-            </td>
-        </tr>
-    }
-}
+        @foreach (var item in Model)
+        {
+            @if (item != null)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaskName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaskDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Progress)
+                        @Html.DisplayName("%")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Flags)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.TaskId">Edit</a> |
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.TaskId">Details</a> |
+                        @if (UserController.role == "Admin")
+                        {
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.TaskId">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
